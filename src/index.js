@@ -1,8 +1,16 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
+import React from "react";
+import ReactDOM from "react-dom";
 
-import App from './App'
-import 'ace-css/css/ace.min.css'
-import './index.css'
+import "ace-css/css/ace.min.css";
+import "./index.css";
 
-ReactDOM.render(<App />, document.getElementById('root'))
+import App from "./App";
+import { urlToParams } from "./util";
+
+// TODO: check whether initial values are valid
+const initialValues = urlToParams(window.location.hash);
+
+ReactDOM.render(
+  <App initialValues={initialValues} />,
+  document.getElementById("root")
+);

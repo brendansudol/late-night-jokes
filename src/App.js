@@ -1,43 +1,43 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
 
-const API_BASE = 'https://late-night-jokes-api.herokuapp.com/'
+const API_BASE = "https://late-night-jokes-api.herokuapp.com/";
 
 const HOSTS = [
-  { id: '', display: 'All hosts' },
-  { id: 'Conan', display: "Conan O'Brien" },
-  { id: 'Ferguson', display: 'Craig Ferguson' },
-  { id: 'Letterman', display: 'David Letterman' },
-  { id: 'Corden', display: 'James Corden' },
-  { id: 'Leno', display: 'Jay Leno' },
-  { id: 'Fallon', display: 'Jimmy Fallon' },
-  { id: 'Kimmel', display: 'Jimmy Kimmel' },
-  { id: 'Meyers', display: 'Seth Meyers' },
-  { id: 'Colbert', display: 'Stephen Colbert' },
-]
+  { id: "", display: "All hosts" },
+  { id: "Conan", display: "Conan O'Brien" },
+  { id: "Ferguson", display: "Craig Ferguson" },
+  { id: "Letterman", display: "David Letterman" },
+  { id: "Corden", display: "James Corden" },
+  { id: "Leno", display: "Jay Leno" },
+  { id: "Fallon", display: "Jimmy Fallon" },
+  { id: "Kimmel", display: "Jimmy Kimmel" },
+  { id: "Meyers", display: "Seth Meyers" },
+  { id: "Colbert", display: "Stephen Colbert" }
+];
 
 const YEARS = [
-  { id: '', display: 'All years' },
-  { id: '2009', display: '2009' },
-  { id: '2010', display: '2010' },
-  { id: '2011', display: '2011' },
-  { id: '2012', display: '2012' },
-  { id: '2013', display: '2013' },
-  { id: '2014', display: '2014' },
-  { id: '2015', display: '2015' },
-  { id: '2016', display: '2016' },
-  { id: '2017', display: '2017' },
-  { id: '2018', display: '2018' },
-]
+  { id: "", display: "All years" },
+  { id: "2009", display: "2009" },
+  { id: "2010", display: "2010" },
+  { id: "2011", display: "2011" },
+  { id: "2012", display: "2012" },
+  { id: "2013", display: "2013" },
+  { id: "2014", display: "2014" },
+  { id: "2015", display: "2015" },
+  { id: "2016", display: "2016" },
+  { id: "2017", display: "2017" },
+  { id: "2018", display: "2018" }
+];
 
 const objToUrlParams = obj =>
   Object.entries(obj)
-    .filter(([_, val]) => val !== '')
+    .filter(([_, val]) => val !== "")
     .map(([key, val]) => `${key}=${encodeURIComponent(val)}`)
-    .join('&')
+    .join("&");
 
-const Skeleton = ({ className = '', width }) => (
+const Skeleton = ({ className = "", width }) => (
   <div className={`skeleton-line ${className}`} style={{ width }} />
-)
+);
 
 const Loading = ({ entries = 10 }) => (
   <div>
@@ -52,47 +52,68 @@ const Loading = ({ entries = 10 }) => (
       </div>
     ))}
   </div>
-)
+);
 
-const resultCtLine = n => `${n}${n === 100 ? '+' : ''} result${n !== 1 ? 's' : ''}`
+const resultCtLine = n =>
+  `${n}${n === 100 ? "+" : ""} result${n !== 1 ? "s" : ""}`;
 
 class App extends Component {
-  state = {
-    jokes: null,
-    query: '',
-    host: '',
-    year: '',
-    isLoading: false,
+  constructor(props) {
+    super(props);
+
+    const { initialValues } = props;
+
+    // TODO: clean this up
+    this.state = {
+      jokes: null,
+      query: initialValues.query || "",
+      host: initialValues.host || "",
+      year: initialValues.year || "",
+      isLoading: false
+    };
   }
 
-  handleChange = (e, cb) => {
-    const { name, value } = e.target
-    this.setState({ [name]: value }, cb)
+  componentDidMount() {
+    this.fetchJokes();
   }
+
+  handleQueryChange = e => {
+    this.setState({ query: e.target.value }, this.updateUrl);
+  };
 
   handleSelectChange = e => {
-    this.handleChange(e, this.fetchJokes)
-  }
+    const { name, value } = e.target;
+    this.setState({ [name]: value }, () => {
+      this.updateUrl();
+      this.fetchJokes();
+    });
+  };
 
   handleSubmit = e => {
-    e.preventDefault()
-    this.fetchJokes()
-  }
+    e.preventDefault();
+    this.fetchJokes();
+  };
 
   fetchJokes = async () => {
-    this.setState({ jokes: [], isLoading: true })
+    const { query, host, year } = this.state;
+    if (!query) return;
 
-    const { query, host, year } = this.state
-    const params = objToUrlParams({ query, host, year })
-    const url = `${API_BASE}?${params}`
-    const response = await fetch(url)
-    const data = await response.json()
+    this.setState({ jokes: [], isLoading: true });
 
-    this.setState({ jokes: data.results, isLoading: false })
-  }
+    const params = objToUrlParams({ query, host, year });
+    const response = await fetch(`${API_BASE}?${params}`);
+    const data = await response.json();
+
+    this.setState({ jokes: data.results, isLoading: false });
+  };
+
+  updateUrl = () => {
+    const { query, host, year } = this.state;
+    window.location.hash = objToUrlParams({ query, host, year });
+  };
 
   render() {
-    const { host, jokes, query, year, isLoading } = this.state
+    const { host, jokes, query, year, isLoading } = this.state;
 
     return (
       <div className="container mx-auto p2">
@@ -111,15 +132,19 @@ class App extends Component {
               name="query"
               placeholder="Search..."
               value={query}
-              onChange={this.handleChange}
+              onChange={this.handleQueryChange}
             />
-            <button className="btn btn-primary rounded-right" type="submit">
+            <button
+              className="btn btn-primary rounded-right"
+              type="submit"
+              disabled={isLoading || !query}
+            >
               Go
             </button>
           </div>
           <div className="flex sm-col-5 mxn1 h5">
             <select
-              className="select bg-white mx1 my0"
+              className="select bg-white mx1 my0 col-7"
               name="host"
               value={host}
               onChange={this.handleSelectChange}
@@ -131,7 +156,7 @@ class App extends Component {
               ))}
             </select>
             <select
-              className="select bg-white mx1 my0"
+              className="select bg-white mx1 my0 col-5"
               name="year"
               value={year}
               onChange={this.handleSelectChange}
@@ -167,8 +192,8 @@ class App extends Component {
             </div>
           ))}
       </div>
-    )
+    );
   }
 }
 
-export default App
+export default App;
