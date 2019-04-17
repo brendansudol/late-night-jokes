@@ -1,84 +1,38 @@
 import React, { Component } from "react";
 
-const API_BASE = "https://late-night-jokes-api.herokuapp.com/";
+import { Loading } from "./Loading";
+import {
+  paramsToUrl,
+  API_BASE,
+  API_RESULTS_LIMIT,
+  HOST_OPTIONS,
+  YEAR_OPTIONS
+} from "./util";
 
-const HOSTS = [
-  { id: "", display: "All hosts" },
-  { id: "Conan", display: "Conan O'Brien" },
-  { id: "Ferguson", display: "Craig Ferguson" },
-  { id: "Letterman", display: "David Letterman" },
-  { id: "Corden", display: "James Corden" },
-  { id: "Leno", display: "Jay Leno" },
-  { id: "Fallon", display: "Jimmy Fallon" },
-  { id: "Kimmel", display: "Jimmy Kimmel" },
-  { id: "Meyers", display: "Seth Meyers" },
-  { id: "Colbert", display: "Stephen Colbert" }
-];
-
-const YEARS = [
-  { id: "", display: "All years" },
-  { id: "2009", display: "2009" },
-  { id: "2010", display: "2010" },
-  { id: "2011", display: "2011" },
-  { id: "2012", display: "2012" },
-  { id: "2013", display: "2013" },
-  { id: "2014", display: "2014" },
-  { id: "2015", display: "2015" },
-  { id: "2016", display: "2016" },
-  { id: "2017", display: "2017" },
-  { id: "2018", display: "2018" }
-];
-
-const objToUrlParams = obj =>
-  Object.entries(obj)
-    .filter(([_, val]) => val !== "")
-    .map(([key, val]) => `${key}=${encodeURIComponent(val)}`)
-    .join("&");
-
-const Skeleton = ({ className = "", width }) => (
-  <div className={`skeleton-line ${className}`} style={{ width }} />
-);
-
-const Loading = ({ entries = 10 }) => (
-  <div>
-    <Skeleton className="mb2" width={70} />
-    {[...Array(entries)].map((_, i) => (
-      <div key={i} className="mb3 pl2 py2 result">
-        <div className="mb2">
-          <Skeleton className="mb1 h3" width="60%" />
-          <Skeleton className="mb1 h3" width="80%" />
-        </div>
-        <Skeleton className="h5" width="30%" />
-      </div>
-    ))}
-  </div>
-);
-
-const resultCtLine = n =>
-  `${n}${n === 100 ? "+" : ""} result${n !== 1 ? "s" : ""}`;
+const resultSentence = n =>
+  `${n}${n === API_RESULTS_LIMIT ? "+" : ""} result${n !== 1 ? "s" : ""}`;
 
 class App extends Component {
   constructor(props) {
     super(props);
 
-    const { initialValues } = props;
-
-    // TODO: clean this up
     this.state = {
       jokes: null,
-      query: initialValues.query || "",
-      host: initialValues.host || "",
-      year: initialValues.year || "",
-      isLoading: false
+      isLoading: false,
+      query: props.initialQuery,
+      host: props.initialHost,
+      year: props.initialYear
     };
   }
 
   componentDidMount() {
+    this.updateUrl();
     this.fetchJokes();
   }
 
   handleQueryChange = e => {
-    this.setState({ query: e.target.value }, this.updateUrl);
+    const query = e.target.value;
+    this.setState({ query }, this.updateUrl);
   };
 
   handleSelectChange = e => {
@@ -100,7 +54,7 @@ class App extends Component {
 
     this.setState({ jokes: [], isLoading: true });
 
-    const params = objToUrlParams({ query, host, year });
+    const params = paramsToUrl({ query, host, year });
     const response = await fetch(`${API_BASE}?${params}`);
     const data = await response.json();
 
@@ -109,7 +63,7 @@ class App extends Component {
 
   updateUrl = () => {
     const { query, host, year } = this.state;
-    window.location.hash = objToUrlParams({ query, host, year });
+    window.location.hash = paramsToUrl({ query, host, year });
   };
 
   render() {
@@ -149,7 +103,7 @@ class App extends Component {
               value={host}
               onChange={this.handleSelectChange}
             >
-              {HOSTS.map(host => (
+              {HOST_OPTIONS.map(host => (
                 <option key={host.id} value={host.id}>
                   {host.display}
                 </option>
@@ -161,7 +115,7 @@ class App extends Component {
               value={year}
               onChange={this.handleSelectChange}
             >
-              {YEARS.map(year => (
+              {YEAR_OPTIONS.map(year => (
                 <option key={year.id} value={year.id}>
                   {year.display}
                 </option>
@@ -178,7 +132,7 @@ class App extends Component {
             )
           ) : (
             <div>
-              <h5 className="mb2">{resultCtLine(jokes.length)}</h5>
+              <h5 className="mb2">{resultSentence(jokes.length)}</h5>
               {jokes.map(joke => (
                 <div key={joke.id} className="mb3 pl2 py2 result">
                   <div className="mb2">{joke.text}</div>

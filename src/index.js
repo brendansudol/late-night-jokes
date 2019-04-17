@@ -5,12 +5,15 @@ import "ace-css/css/ace.min.css";
 import "./index.css";
 
 import App from "./App";
-import { urlToParams } from "./util";
+import { urlToParams, HOSTS, YEARS } from "./util";
 
-// TODO: check whether initial values are valid
-const initialValues = urlToParams(window.location.hash);
+const { query, host, year } = urlToParams(window.location.hash);
 
 ReactDOM.render(
-  <App initialValues={initialValues} />,
+  <App
+    initialQuery={query || ""}
+    initialHost={HOSTS.has(host) ? host : ""}
+    initialYear={YEARS.has(year) ? year : ""}
+  />,
   document.getElementById("root")
 );
