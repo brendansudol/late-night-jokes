@@ -1,15 +1,15 @@
 {
-  "main.css": "/static/css/main.2a5b4246.chunk.css",
-  "main.js": "/static/js/main.38105b02.chunk.js",
-  "main.js.map": "/static/js/main.38105b02.chunk.js.map",
-  "runtime~main.js": "/static/js/runtime~main.a8a9905a.js",
-  "runtime~main.js.map": "/static/js/runtime~main.a8a9905a.js.map",
-  "static/css/2.64ac3f03.chunk.css": "/static/css/2.64ac3f03.chunk.css",
-  "static/js/2.772014db.chunk.js": "/static/js/2.772014db.chunk.js",
-  "static/js/2.772014db.chunk.js.map": "/static/js/2.772014db.chunk.js.map",
-  "index.html": "/index.html",
-  "precache-manifest.88fc41b1b5dd03e42ba9a4ca180a6625.js": "/precache-manifest.88fc41b1b5dd03e42ba9a4ca180a6625.js",
-  "service-worker.js": "/service-worker.js",
-  "static/css/2.64ac3f03.chunk.css.map": "/static/css/2.64ac3f03.chunk.css.map",
-  "static/css/main.2a5b4246.chunk.css.map": "/static/css/main.2a5b4246.chunk.css.map"
+  "main.css": "/late-night-jokes/static/css/main.2a5b4246.chunk.css",
+  "main.js": "/late-night-jokes/static/js/main.38105b02.chunk.js",
+  "main.js.map": "/late-night-jokes/static/js/main.38105b02.chunk.js.map",
+  "runtime~main.js": "/late-night-jokes/static/js/runtime~main.3ee2a731.js",
+  "runtime~main.js.map": "/late-night-jokes/static/js/runtime~main.3ee2a731.js.map",
+  "static/css/2.64ac3f03.chunk.css": "/late-night-jokes/static/css/2.64ac3f03.chunk.css",
+  "static/js/2.772014db.chunk.js": "/late-night-jokes/static/js/2.772014db.chunk.js",
+  "static/js/2.772014db.chunk.js.map": "/late-night-jokes/static/js/2.772014db.chunk.js.map",
+  "index.html": "/late-night-jokes/index.html",
+  "precache-manifest.7da937e6d464b5bd1be3fd8eb924c2ad.js": "/late-night-jokes/precache-manifest.7da937e6d464b5bd1be3fd8eb924c2ad.js",
+  "service-worker.js": "/late-night-jokes/service-worker.js",
+  "static/css/2.64ac3f03.chunk.css.map": "/late-night-jokes/static/css/2.64ac3f03.chunk.css.map",
+  "static/css/main.2a5b4246.chunk.css.map": "/late-night-jokes/static/css/main.2a5b4246.chunk.css.map"
 }
