@@ -16,6 +16,7 @@ export const paramsToUrl = obj =>
     .join("&");
 
 export const API_BASE = "https://late-night-jokes-api.herokuapp.com/";
+
 export const API_RESULTS_LIMIT = 500;
 
 export const HOST_OPTIONS = [
@@ -45,6 +46,19 @@ export const YEAR_OPTIONS = [
   { id: "2018", display: "2018" }
 ];
 
-const uniq = data => new Set(data.map(d => d.id));
-export const HOSTS = uniq(HOST_OPTIONS.slice(1));
-export const YEARS = uniq(YEAR_OPTIONS.slice(1));
+export const ORDER_OPTIONS = [
+  { id: "", display: "New to old" },
+  { id: "date", display: "Old to new" },
+  { id: "host", display: "Host (A to Z)" }
+];
+
+export const OPTION_DATA_BY_KEY = {
+  host: HOST_OPTIONS,
+  year: YEAR_OPTIONS,
+  order: ORDER_OPTIONS
+};
+
+export const getInitialValue = (key, value) => {
+  const options = OPTION_DATA_BY_KEY[key];
+  return options.find(o => o.id === value) ? value : options[0].id;
+};

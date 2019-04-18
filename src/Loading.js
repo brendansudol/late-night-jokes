@@ -6,7 +6,10 @@ export const Skeleton = ({ className = "", width }) => (
 
 export const Loading = ({ entries = 25 }) => (
   <div>
-    <Skeleton className="mb2" width={70} />
+    <div className="mb2 flex items-center justify-between">
+      <Skeleton width={70} />
+      <Skeleton className="h2" width={100} />
+    </div>
     {[...Array(entries)].map((_, i) => (
       <div key={i} className="mb3 pl2 py2 result">
         <div className="mb2">

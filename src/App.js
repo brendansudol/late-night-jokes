@@ -6,6 +6,7 @@ import {
   API_BASE,
   API_RESULTS_LIMIT,
   HOST_OPTIONS,
+  ORDER_OPTIONS,
   YEAR_OPTIONS
 } from "./util";
 
@@ -21,7 +22,8 @@ class App extends Component {
       isLoading: false,
       query: props.initialQuery,
       host: props.initialHost,
-      year: props.initialYear
+      year: props.initialYear,
+      order: props.initialOrder
     };
   }
 
@@ -49,12 +51,11 @@ class App extends Component {
   };
 
   fetchJokes = async () => {
-    const { query, host, year } = this.state;
-    if (!query) return;
+    if (!this.state.query) return;
 
     this.setState({ jokes: [], isLoading: true });
 
-    const params = paramsToUrl({ query, host, year });
+    const params = paramsToUrl(this.getParams());
     const response = await fetch(`${API_BASE}?${params}`);
     const data = await response.json();
 
@@ -62,12 +63,16 @@ class App extends Component {
   };
 
   updateUrl = () => {
-    const { query, host, year } = this.state;
-    window.location.hash = paramsToUrl({ query, host, year });
+    window.location.hash = paramsToUrl(this.getParams());
+  };
+
+  getParams = () => {
+    const { query, host, year, order } = this.state;
+    return { query, host, year, order };
   };
 
   render() {
-    const { host, jokes, query, year, isLoading } = this.state;
+    const { host, jokes, order, query, year, isLoading } = this.state;
 
     return (
       <div className="container mx-auto p2">
@@ -98,26 +103,26 @@ class App extends Component {
           </div>
           <div className="flex sm-col-5 mxn1 h5">
             <select
-              className="select bg-white mx1 my0 col-7"
+              className="select mx1 my0 col-7"
               name="host"
               value={host}
               onChange={this.handleSelectChange}
             >
-              {HOST_OPTIONS.map(host => (
-                <option key={host.id} value={host.id}>
-                  {host.display}
+              {HOST_OPTIONS.map(option => (
+                <option key={option.id} value={option.id}>
+                  {option.display}
                 </option>
               ))}
             </select>
             <select
-              className="select bg-white mx1 my0 col-5"
+              className="select mx1 my0 col-5"
               name="year"
               value={year}
               onChange={this.handleSelectChange}
             >
-              {YEAR_OPTIONS.map(year => (
-                <option key={year.id} value={year.id}>
-                  {year.display}
+              {YEAR_OPTIONS.map(option => (
+                <option key={option.id} value={option.id}>
+                  {option.display}
                 </option>
               ))}
             </select>
@@ -132,7 +137,24 @@ class App extends Component {
             )
           ) : (
             <div>
-              <h5 className="mb2">{resultSentence(jokes.length)}</h5>
+              <div className="mb2 flex items-center justify-between">
+                <h5 className="m0">{resultSentence(jokes.length)}</h5>
+                <div className="flex items-center justify-center">
+                  <h5 className="m0 pr1 flex-none">Sort by:</h5>
+                  <select
+                    className="m0 select select-skinny h5"
+                    name="order"
+                    value={order}
+                    onChange={this.handleSelectChange}
+                  >
+                    {ORDER_OPTIONS.map(option => (
+                      <option key={option.id} value={option.id}>
+                        {option.display}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
               {jokes.map(joke => (
                 <div key={joke.id} className="mb3 pl2 py2 result">
                   <div className="mb2">{joke.text}</div>

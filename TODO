@@ -5,3 +5,5 @@
 * snazzier
 * deploy front-end app
 * custom url?
+* handle API fails
+* cleaner initial value logic

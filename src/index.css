@@ -14,12 +14,22 @@ p {
   margin-top: 0;
 }
 
-input[type='search'] {
+input[type="search"] {
   -webkit-appearance: none;
 }
 
 .container {
   max-width: 750px;
+}
+
+.input,
+.select,
+.textarea {
+  background-color: #fff;
+}
+
+.select-skinny {
+  height: 2rem;
 }
 
 .bg-light {
