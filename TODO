@@ -1,9 +1,16 @@
+TODO
+
 * componentize
 * about modal
 * share links
-* sort by dropdown
-* snazzier
-* deploy front-end app
+* snazzier look
 * custom url?
+* better 'first time here' state
+
+DONE
+
+* deploy front-end app
 * handle API fails
-* cleaner initial value logic
+* sort by dropdown
+* mobile tweak - don't zoom on input focus
+* host display name (convert to full name)

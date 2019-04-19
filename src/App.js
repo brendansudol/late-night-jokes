@@ -1,10 +1,12 @@
 import React, { Component } from "react";
+import { FiFacebook, FiTwitter } from "react-icons/fi";
 
 import { Loading } from "./Loading";
 import {
   paramsToUrl,
   API_BASE,
   API_RESULTS_LIMIT,
+  HOST_NAME_LOOKUP,
   HOST_OPTIONS,
   ORDER_OPTIONS,
   YEAR_OPTIONS
@@ -76,9 +78,21 @@ class App extends Component {
 
     return (
       <div className="container mx-auto p2">
-        <div className="mb2">
-          <h1 className="m0 h2 sm-h1">Late Night Joke Library</h1>
-          <p className="h4 sm-h3">Explore 10+ years of monologue jokes</p>
+        <div className="mb2 flex items-center">
+          <div className="flex-auto">
+            <h1 className="m0 h2 sm-h1">Late Night Joke Library</h1>
+            <p className="m0 h4 sm-h3">Explore 10+ years of monologue jokes</p>
+          </div>
+          <div className="right-align xs-hide">
+            <div className="line-height-1">
+              <FiTwitter className="ml1" />
+              <FiFacebook className="ml1" />
+            </div>
+            <div className="h6">
+              <span className="underline">About</span> /{" "}
+              <span className="underline">Send feedback</span>
+            </div>
+          </div>
         </div>
         <form
           className="mb2 p2 sm-p3 bg-light rounded sm-flex justify-between"
@@ -92,11 +106,12 @@ class App extends Component {
               placeholder="Search..."
               value={query}
               onChange={this.handleQueryChange}
+              required={true}
             />
             <button
               className="btn btn-primary rounded-right"
               type="submit"
-              disabled={isLoading || !query}
+              disabled={isLoading}
             >
               Go
             </button>
@@ -159,7 +174,7 @@ class App extends Component {
                 <div key={joke.id} className="mb3 pl2 py2 result">
                   <div className="mb2">{joke.text}</div>
                   <div className="h5">
-                    {joke.host}
+                    {HOST_NAME_LOOKUP[joke.host] || joke.host}
                     <span className="px1">/</span>
                     {joke.date}
                   </div>

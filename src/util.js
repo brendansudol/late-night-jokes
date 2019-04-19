@@ -52,13 +52,21 @@ export const ORDER_OPTIONS = [
   { id: "host", display: "Host (A to Z)" }
 ];
 
-export const OPTION_DATA_BY_KEY = {
+export const OPTION_DATA = {
   host: HOST_OPTIONS,
   year: YEAR_OPTIONS,
   order: ORDER_OPTIONS
 };
 
+export const HOST_NAME_LOOKUP = HOST_OPTIONS.slice(1).reduce(
+  (obj, curr) => ({
+    ...obj,
+    [curr.id]: curr.display
+  }),
+  {}
+);
+
 export const getInitialValue = (key, value) => {
-  const options = OPTION_DATA_BY_KEY[key];
-  return options.find(o => o.id === value) ? value : options[0].id;
+  const options = OPTION_DATA[key];
+  return options && options.find(o => o.id === value) ? value : options[0].id;
 };
