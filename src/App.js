@@ -78,12 +78,14 @@ class App extends Component {
 
     return (
       <div className="container mx-auto p2">
-        <div className="mb2 flex items-center">
+        <div className="mb2 flex">
           <div className="flex-auto">
             <h1 className="m0 h2 sm-h1">Late Night Joke Library</h1>
-            <p className="m0 h4 sm-h3">Explore 10+ years of monologue jokes</p>
+            <p className="m0 h4 sm-h3 line-height-1">
+              Explore 10+ years of monologue jokes
+            </p>
           </div>
-          <div className="right-align xs-hide">
+          <div className="flex flex-column justify-end right-align xs-hide">
             <div className="line-height-1">
               <FiTwitter className="ml1" />
               <FiFacebook className="ml1" />
