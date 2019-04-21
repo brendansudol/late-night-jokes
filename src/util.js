@@ -70,3 +70,11 @@ export const getInitialValue = (key, value) => {
   const options = OPTION_DATA[key];
   return options && options.find(o => o.id === value) ? value : options[0].id;
 };
+
+const enc = txt => encodeURIComponent(txt);
+
+export const tweetUrl = data => {
+  const { origin: url } = window.location;
+  const msg = "😂📔🔍 Late Night Joke Library :: 10+ years, 40k+ jokes";
+  return `https://twitter.com/intent/tweet?text=${enc(msg)}&url=${enc(url)}`;
+};

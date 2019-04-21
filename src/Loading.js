@@ -4,7 +4,7 @@ export const Skeleton = ({ className = "", width }) => (
   <div className={`skeleton-line ${className}`} style={{ width }} />
 );
 
-export const Loading = ({ entries = 25 }) => (
+export const Loading = ({ entries = 50 }) => (
   <div>
     <div className="mb2 flex items-center justify-between">
       <Skeleton width={70} />

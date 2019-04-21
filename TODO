@@ -1,11 +1,11 @@
 TODO
 
 * componentize
-* about modal
 * share links
-* snazzier look
 * custom url?
-* better 'first time here' state
+* better title / subtitle?
+* footer
+* README
 
 DONE
 
@@ -14,3 +14,13 @@ DONE
 * sort by dropdown
 * mobile tweak - don't zoom on input focus
 * host display name (convert to full name)
+* better no results display
+* better 'first time here' state
+
+LATER
+
+* snazzier look
+
+NOPE
+
+* about modal

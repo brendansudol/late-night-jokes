@@ -12,6 +12,8 @@ import {
   YEAR_OPTIONS
 } from "./util";
 
+const SUGGESTED_QUERIES = ["Trump", "NFL", "Pope", "Facebook"];
+
 const resultSentence = n =>
   `${n}${n === API_RESULTS_LIMIT ? "+" : ""} result${n !== 1 ? "s" : ""}`;
 
@@ -22,6 +24,7 @@ class App extends Component {
     this.state = {
       jokes: null,
       isLoading: false,
+      lastSearchedQuery: null,
       query: props.initialQuery,
       host: props.initialHost,
       year: props.initialYear,
@@ -30,7 +33,6 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.updateUrl();
     this.fetchJokes();
   }
 
@@ -41,10 +43,11 @@ class App extends Component {
 
   handleSelectChange = e => {
     const { name, value } = e.target;
-    this.setState({ [name]: value }, () => {
-      this.updateUrl();
-      this.fetchJokes();
-    });
+    this.setState({ [name]: value }, this.fetchJokes);
+  };
+
+  handleSuggestionClick = query => () => {
+    this.setState({ query }, this.fetchJokes);
   };
 
   handleSubmit = e => {
@@ -53,46 +56,65 @@ class App extends Component {
   };
 
   fetchJokes = async () => {
-    if (!this.state.query) return;
+    this.updateUrl();
 
-    this.setState({ jokes: [], isLoading: true });
+    const { query, host, year, order } = this.state;
+    if (!query) return;
 
-    const params = paramsToUrl(this.getParams());
-    const response = await fetch(`${API_BASE}?${params}`);
+    this.setState({ jokes: [], isLoading: true, lastSearchedQuery: query });
+
+    const urlParams = paramsToUrl({ query, host, year, order });
+    const response = await fetch(`${API_BASE}?${urlParams}`);
     const data = await response.json();
 
-    this.setState({ jokes: data.results, isLoading: false });
+    this.setState({
+      jokes: data.results,
+      isLoading: false
+    });
   };
 
   updateUrl = () => {
-    window.location.hash = paramsToUrl(this.getParams());
-  };
-
-  getParams = () => {
     const { query, host, year, order } = this.state;
-    return { query, host, year, order };
+    window.location.hash = paramsToUrl({ query, host, year, order });
   };
 
   render() {
-    const { host, jokes, order, query, year, isLoading } = this.state;
+    const {
+      host,
+      jokes,
+      order,
+      query,
+      year,
+      isLoading,
+      lastSearchedQuery
+    } = this.state;
 
     return (
       <div className="container mx-auto p2">
         <div className="mb2 flex">
           <div className="flex-auto">
-            <h1 className="m0 h2 sm-h1">Late Night Joke Library</h1>
+            <h1 className="m0 h2 sm-h1">
+              <a href="/" className="text-decoration-none">
+                Late Night Joke Library
+              </a>
+            </h1>
             <p className="m0 h4 sm-h3 line-height-1">
               Explore 10+ years of monologue jokes
             </p>
           </div>
           <div className="flex flex-column justify-end right-align xs-hide">
             <div className="line-height-1">
-              <FiTwitter className="ml1" />
-              <FiFacebook className="ml1" />
+              <a href="#!">
+                <FiTwitter className="ml1" />
+              </a>
+              <a href="#!">
+                <FiFacebook className="ml1" />
+              </a>
             </div>
             <div className="h6">
-              <span className="underline">About</span> /{" "}
-              <span className="underline">Send feedback</span>
+              <a href="mailto:brendansudol@gmail.com?Subject=Late%20Night%20Joke%20Library">
+                Send feedback
+              </a>
             </div>
           </div>
         </div>
@@ -145,12 +167,30 @@ class App extends Component {
             </select>
           </div>
         </form>
+        {lastSearchedQuery == null && (
+          <div className="py1">
+            <span className="mr1">A few suggestions to get you started:</span>
+            {SUGGESTED_QUERIES.map(suggestion => (
+              <a
+                key={suggestion}
+                className="mr1 bold"
+                href="#!"
+                onClick={this.handleSuggestionClick(suggestion)}
+              >
+                {suggestion}
+              </a>
+            ))}
+          </div>
+        )}
         {jokes != null &&
           (jokes.length === 0 ? (
             isLoading ? (
               <Loading />
             ) : (
-              <p>No jokes :(</p>
+              <p className="my3 p2 h3 center rounded no-results">
+                <strong>Sorry!</strong> We couldn't find any results for{" "}
+                <em>{lastSearchedQuery}</em>.
+              </p>
             )
           ) : (
             <div>
