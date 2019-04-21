@@ -22,6 +22,16 @@ input[type="search"] {
   -webkit-appearance: none;
 }
 
+.app {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.app-content {
+  flex: 1;
+}
+
 .container {
   max-width: 750px;
 }
@@ -56,6 +66,10 @@ input[type="search"] {
 
 .result {
   border-left: 8px solid #f5f5f5;
+}
+
+.border-light {
+  border-color: #f5f5f5;
 }
 
 .no-results {

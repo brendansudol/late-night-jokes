@@ -1,21 +1,22 @@
 TODO
 
-* componentize
-* share links
-* custom url?
-* better title / subtitle?
-* footer
-* README
+* share links (5)
+* custom url? (10)
+* better title / subtitle? (5)
+* componentize (15)
+* README (5)
+
 
 DONE
 
 * deploy front-end app
-* handle API fails
 * sort by dropdown
 * mobile tweak - don't zoom on input focus
 * host display name (convert to full name)
 * better no results display
 * better 'first time here' state
+* footer (10)
+* handle API fails (5)
 
 LATER
 
