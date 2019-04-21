@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/late-night-jokes/precache-manifest.06db07ad99718e80b60528282e4aab36.js"
+  "/late-night-jokes/precache-manifest.46fc63f864b71bc7219d72033e2a34eb.js"
 );
 
 workbox.clientsClaim();
