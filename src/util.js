@@ -19,17 +19,19 @@ export const API_BASE = "https://late-night-jokes-api.herokuapp.com/";
 
 export const API_RESULTS_LIMIT = 500;
 
+export const SUGGESTED_QUERIES = ["Trump", "NFL", "Pope", "Facebook"];
+
 export const HOST_OPTIONS = [
   { id: "", display: "All hosts" },
-  { id: "Conan", display: "Conan O'Brien" },
-  { id: "Ferguson", display: "Craig Ferguson" },
-  { id: "Letterman", display: "David Letterman" },
-  { id: "Corden", display: "James Corden" },
-  { id: "Leno", display: "Jay Leno" },
-  { id: "Fallon", display: "Jimmy Fallon" },
-  { id: "Kimmel", display: "Jimmy Kimmel" },
-  { id: "Meyers", display: "Seth Meyers" },
-  { id: "Colbert", display: "Stephen Colbert" }
+  { id: "conan", display: "Conan O'Brien" },
+  { id: "ferguson", display: "Craig Ferguson" },
+  { id: "letterman", display: "David Letterman" },
+  { id: "corden", display: "James Corden" },
+  { id: "leno", display: "Jay Leno" },
+  { id: "fallon", display: "Jimmy Fallon" },
+  { id: "kimmel", display: "Jimmy Kimmel" },
+  { id: "meyers", display: "Seth Meyers" },
+  { id: "colbert", display: "Stephen Colbert" }
 ];
 
 export const YEAR_OPTIONS = [
@@ -74,7 +76,7 @@ export const getInitialValue = (key, value) => {
 const enc = txt => encodeURIComponent(txt);
 
 export const tweetUrl = data => {
-  const { origin: url } = window.location;
-  const msg = "😂📔🔍 Late Night Joke Library :: 10+ years, 40k+ jokes";
+  const url = window.location.origin;
+  const msg = "😂📔🔍 Late Night Joke Library :: 10+ years, 30k+ jokes";
   return `https://twitter.com/intent/tweet?text=${enc(msg)}&url=${enc(url)}`;
 };

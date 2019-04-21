@@ -6,13 +6,11 @@ import {
   paramsToUrl,
   API_BASE,
   API_RESULTS_LIMIT,
-  HOST_NAME_LOOKUP,
   HOST_OPTIONS,
   ORDER_OPTIONS,
+  SUGGESTED_QUERIES,
   YEAR_OPTIONS
 } from "./util";
-
-const SUGGESTED_QUERIES = ["Trump", "NFL", "Pope", "Facebook"];
 
 const resultSentence = n =>
   `${n}${n === API_RESULTS_LIMIT ? "+" : ""} result${n !== 1 ? "s" : ""}`;
@@ -38,7 +36,7 @@ class App extends Component {
 
   handleQueryChange = e => {
     const query = e.target.value;
-    this.setState({ query }, this.updateUrl);
+    this.setState({ query });
   };
 
   handleSelectChange = e => {
@@ -216,7 +214,7 @@ class App extends Component {
                 <div key={joke.id} className="mb3 pl2 py2 result">
                   <div className="mb2">{joke.text}</div>
                   <div className="h5">
-                    {HOST_NAME_LOOKUP[joke.host] || joke.host}
+                    {joke.host}
                     <span className="px1">/</span>
                     {joke.date}
                   </div>
