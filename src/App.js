@@ -12,8 +12,11 @@ import {
   YEAR_OPTIONS
 } from "./util";
 
-const resultSentence = n =>
-  `${n}${n === API_RESULTS_LIMIT ? "+" : ""} result${n !== 1 ? "s" : ""}`;
+const resultSentence = n => `${n}${n === API_RESULTS_LIMIT ? "+" : ""} result${n !== 1 ? "s" : ""}`;
+
+const enc = txt => encodeURIComponent(txt);
+const shareMsg = "Explore 35k+ monologue jokes from 10+ years of late night.";
+const shareUrl = window.location.origin;
 
 class App extends Component {
   constructor(props) {
@@ -85,16 +88,7 @@ class App extends Component {
   };
 
   render() {
-    const {
-      query,
-      host,
-      year,
-      order,
-      jokes,
-      isLoading,
-      hasError,
-      lastSearchedQuery
-    } = this.state;
+    const { query, host, year, order, jokes, isLoading, hasError, lastSearchedQuery } = this.state;
 
     return (
       <div className="app container mx-auto p2">
@@ -105,16 +99,22 @@ class App extends Component {
                 Late Night Joke Library
               </a>
             </h1>
-            <p className="m0 h4 sm-h3 line-height-1">
-              Explore 10+ years of monologue jokes
-            </p>
+            <p className="m0 h4 sm-h3 line-height-1">Explore 10+ years of monologue jokes</p>
           </div>
           <div className="flex flex-column justify-end right-align xs-hide">
             <div className="line-height-1">
-              <a href="#!">
+              <a
+                href={`https://twitter.com/intent/tweet?text=${enc(shareMsg)}&url=${enc(shareUrl)}`}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
                 <FiTwitter className="ml1" />
               </a>
-              <a href="#!">
+              <a
+                href={`https://www.facebook.com/sharer.php?u=${enc(shareUrl)}`}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
                 <FiFacebook className="ml1" />
               </a>
             </div>
@@ -140,11 +140,7 @@ class App extends Component {
                 onChange={this.handleQueryChange}
                 required={true}
               />
-              <button
-                className="btn btn-primary rounded-right"
-                type="submit"
-                disabled={isLoading}
-              >
+              <button className="btn btn-primary rounded-right" type="submit" disabled={isLoading}>
                 Go
               </button>
             </div>
@@ -196,8 +192,7 @@ class App extends Component {
                 <Loading />
               ) : hasError ? (
                 <p className="my3 p2 h3 center rounded bg-red white">
-                  <strong>Uh-oh!</strong> Something went wrong. Please try again
-                  in a few moments.
+                  <strong>Uh-oh!</strong> Something went wrong. Please try again in a few moments.
                 </p>
               ) : (
                 <p className="my3 p2 h3 center rounded no-results">
@@ -242,10 +237,7 @@ class App extends Component {
           <a href="https://brendansudol.com" className="mr2">
             Made by @brensudol
           </a>
-          <a
-            href="https://github.com/brendansudol/late-night-jokes"
-            className="mr2"
-          >
+          <a href="https://github.com/brendansudol/late-night-jokes" className="mr2">
             Code on GitHub
           </a>
         </footer>
