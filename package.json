@@ -1,7 +1,7 @@
 {
   "name": "late-night-jokes",
   "version": "0.0.1",
-  "homepage": "https://brendansudol.com/late-night-jokes",
+  "homepage": "https://latenightlol.com",
   "private": true,
   "dependencies": {
     "ace-css": "^1.1.0",
