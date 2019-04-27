@@ -1,36 +1,41 @@
 import React, { Component } from "react";
 import { FiFacebook, FiTwitter } from "react-icons/fi";
+import { Link } from "react-router-dom";
 
-import { Loading } from "./Loading";
 import {
   paramsToUrl,
+  urlToParams,
+  getInitialValue,
   API_BASE,
   API_RESULTS_LIMIT,
   HOST_OPTIONS,
   ORDER_OPTIONS,
   SUGGESTED_QUERIES,
   YEAR_OPTIONS
-} from "./util";
+} from "../util";
+import { Loading } from "../components/Loading";
 
 const resultSentence = n => `${n}${n === API_RESULTS_LIMIT ? "+" : ""} result${n !== 1 ? "s" : ""}`;
 
 const enc = txt => encodeURIComponent(txt);
 const shareMsg = "Explore 35k+ monologue jokes from 10+ years of late night.";
-const shareUrl = window.location.origin;
+const shareUrl = "https://latenightlol.com";
 
-class App extends Component {
+class Search extends Component {
   constructor(props) {
     super(props);
+
+    const params = urlToParams(props.location.search);
 
     this.state = {
       jokes: null,
       isLoading: false,
       hasError: false,
       lastSearchedQuery: null,
-      query: props.initialQuery,
-      host: props.initialHost,
-      year: props.initialYear,
-      order: props.initialOrder
+      query: params.query || "",
+      host: getInitialValue("host", params.host),
+      year: getInitialValue("year", params.year),
+      order: getInitialValue("order", params.order)
     };
   }
 
@@ -83,8 +88,13 @@ class App extends Component {
   };
 
   updateUrl = () => {
+    const { location, history } = this.props;
     const { query, host, year, order } = this.state;
-    window.location.hash = paramsToUrl({ query, host, year, order });
+
+    const paramStr = paramsToUrl({ query, host, year, order });
+    const newPath = `?${paramStr}`;
+
+    if (newPath !== location.search) history.push(`?${paramStr}`);
   };
 
   render() {
@@ -96,7 +106,7 @@ class App extends Component {
           <div className="flex-auto">
             <h1 className="m0 h2 sm-h1">
               <a href="/" className="text-decoration-none">
-                Late Night Joke Library
+                Late Night Comedy Library
               </a>
             </h1>
             <p className="m0 h4 sm-h3 line-height-1">Explore 10+ years of monologue jokes</p>
@@ -119,9 +129,7 @@ class App extends Component {
               </a>
             </div>
             <div className="h6">
-              <a href="mailto:brendansudol@gmail.com?Subject=Late%20Night%20Joke%20Library">
-                Send feedback
-              </a>
+              <Link to="/random">Get random joke</Link>
             </div>
           </div>
         </header>
@@ -240,10 +248,16 @@ class App extends Component {
           <a href="https://github.com/brendansudol/late-night-jokes" className="mr2">
             Code on GitHub
           </a>
+          <a
+            href="mailto:brendansudol@gmail.com?Subject=Late%20Night%20Joke%20Library"
+            className="mr2"
+          >
+            Send feedback
+          </a>
         </footer>
       </div>
     );
   }
 }
 
-export default App;
+export default Search;

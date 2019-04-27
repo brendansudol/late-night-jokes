@@ -1,10 +1,9 @@
 TODO
 
-* custom url? (10)
 * better title / subtitle? (5)
 * componentize (15)
 * README (5)
-
+* get random joke feature?
 
 DONE
 
@@ -17,6 +16,8 @@ DONE
 * footer (10)
 * handle API fails (5)
 * share links (5)
+* custom url? (10)
+* add google analytics
 
 LATER
 
