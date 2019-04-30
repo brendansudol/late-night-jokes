@@ -1,9 +1,7 @@
 TODO
 
-* better title / subtitle? (5)
-* componentize (15)
-* README (5)
 * get random joke feature?
+* add social meta tags
 
 DONE
 
@@ -18,6 +16,10 @@ DONE
 * share links (5)
 * custom url? (10)
 * add google analytics
+* componentize (15)
+* fix "1969-12-31" jokes (id=181489, 181479)
+* README (5)
+* better title / subtitle? (5)
 
 LATER
 

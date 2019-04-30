@@ -1,22 +1,20 @@
 import React from "react";
 
-export const Skeleton = ({ className = "", width }) => (
-  <div className={`skeleton-line ${className}`} style={{ width }} />
-);
+import { SkeletonLine } from "./SkeletonLine";
 
 export const Loading = ({ entries = 50 }) => (
   <div>
     <div className="mb2 flex items-center justify-between">
-      <Skeleton width={70} />
-      <Skeleton className="h2" width={100} />
+      <SkeletonLine width={70} />
+      <SkeletonLine className="h2" width={100} />
     </div>
     {[...Array(entries)].map((_, i) => (
-      <div key={i} className="mb3 pl2 py2 result">
+      <div key={i} className="mb3 pl2 py2 result result-loading">
         <div className="mb2">
-          <Skeleton className="mb1 h3" width="60%" />
-          <Skeleton className="mb1 h3" width="80%" />
+          <SkeletonLine className="mb1 h3" width="60%" />
+          <SkeletonLine className="mb1 h3" width="80%" />
         </div>
-        <Skeleton className="h5" width="30%" />
+        <SkeletonLine className="h5" width="30%" />
       </div>
     ))}
   </div>

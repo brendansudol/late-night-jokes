@@ -68,8 +68,17 @@ input[type="search"] {
   border-left: 8px solid #f5f5f5;
 }
 
+.result-loading {
+  border-color: rgba(206, 217, 224, 0.2);
+  animation: skeleton-border-glow 1s linear infinite alternate;
+}
+
 .border-light {
   border-color: #f5f5f5;
+}
+
+.border-width-2 {
+  border-width: 2px;
 }
 
 .no-results {
@@ -80,14 +89,23 @@ input[type="search"] {
   background: rgba(206, 217, 224, 0.2);
   height: 1em;
   border-radius: 4px;
-  animation: skeleton-glow 1s linear infinite alternate;
+  animation: skeleton-bg-glow 1s linear infinite alternate;
 }
 
-@keyframes skeleton-glow {
+@keyframes skeleton-bg-glow {
   from {
     background: rgba(206, 217, 224, 0.2);
   }
   to {
     background: rgba(92, 112, 128, 0.2);
+  }
+}
+
+@keyframes skeleton-border-glow {
+  from {
+    border-color: rgba(206, 217, 224, 0.2);
+  }
+  to {
+    border-color: rgba(92, 112, 128, 0.2);
   }
 }
