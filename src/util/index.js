@@ -15,7 +15,7 @@ export const paramsToUrl = obj =>
     .map(([key, val]) => `${key}=${encodeURIComponent(val)}`)
     .join("&");
 
-export const API_BASE = "https://late-night-jokes-api.herokuapp.com/";
+export const API_BASE = "https://late-night-jokes-api.herokuapp.com";
 
 export const API_RESULTS_LIMIT = 500;
 
@@ -60,23 +60,7 @@ export const OPTION_DATA = {
   order: ORDER_OPTIONS
 };
 
-export const HOST_NAME_LOOKUP = HOST_OPTIONS.slice(1).reduce(
-  (obj, curr) => ({
-    ...obj,
-    [curr.id]: curr.display
-  }),
-  {}
-);
-
 export const getInitialValue = (key, value) => {
   const options = OPTION_DATA[key];
   return options && options.find(o => o.id === value) ? value : options[0].id;
-};
-
-const enc = txt => encodeURIComponent(txt);
-
-export const tweetUrl = data => {
-  const url = window.location.origin;
-  const msg = "😂📔🔍 Late Night Joke Library :: 10+ years, 30k+ jokes";
-  return `https://twitter.com/intent/tweet?text=${enc(msg)}&url=${enc(url)}`;
 };

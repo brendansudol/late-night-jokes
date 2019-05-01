@@ -36,6 +36,10 @@ input[type="search"] {
   max-width: 750px;
 }
 
+.container-small {
+  max-width: 700px;
+}
+
 .input,
 .select,
 .textarea {
@@ -54,6 +58,10 @@ input[type="search"] {
 
 .rounded-right {
   border-radius: 0 5px 5px 0;
+}
+
+.measure {
+  max-width: 30em;
 }
 
 .select-skinny {

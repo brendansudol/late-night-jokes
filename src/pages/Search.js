@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 
-import { paramsToUrl, urlToParams, getInitialValue, API_BASE } from "../util";
 import { Error } from "../components/Error";
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
@@ -9,6 +8,7 @@ import { Intro } from "../components/Intro";
 import { Loading } from "../components/Loading";
 import { NoResults } from "../components/NoResults";
 import { Results } from "../components/Results";
+import { paramsToUrl, urlToParams, getInitialValue, API_BASE } from "../util";
 
 class Search extends Component {
   constructor(props) {
@@ -92,7 +92,7 @@ class Search extends Component {
     const { query, host, year, jokes, isLoading, lastSearchedQuery } = this.state;
 
     return (
-      <div className="app container mx-auto p2">
+      <div className="app container mx-auto p2 sm-py3">
         <Header />
         <main className="app-content">
           <Inputs

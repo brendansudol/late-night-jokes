@@ -2,7 +2,7 @@ import React from "react";
 
 export const Footer = () => (
   <footer className="mt3 pt2 h5 border-top border-light border-width-2">
-    <a href="https://brendansudol.com" className="mr2">
+    <a href="https://twitter.com/brensudol" className="mr2">
       Made by @brensudol
     </a>
     <a href="https://github.com/brendansudol/late-night-jokes" className="mr2">
