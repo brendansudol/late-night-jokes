@@ -4,22 +4,22 @@ export const urlToParams = str =>
     .split("&")
     .filter(d => d.length)
     .reduce((params, hash) => {
-      const [key, val] = hash.split("=");
-      const valGood = val === undefined ? null : decodeURIComponent(val);
-      return Object.assign(params, { [key]: valGood });
-    }, {});
+      const [key, val] = hash.split("=")
+      const valGood = val === undefined ? null : decodeURIComponent(val)
+      return Object.assign(params, { [key]: valGood })
+    }, {})
 
 export const paramsToUrl = obj =>
   Object.entries(obj)
     .filter(([_, val]) => val !== "")
     .map(([key, val]) => `${key}=${encodeURIComponent(val)}`)
-    .join("&");
+    .join("&")
 
-export const API_BASE = "https://late-night-jokes-api.herokuapp.com";
+export const API_BASE = "https://late-night-jokes-api.herokuapp.com"
 
-export const API_RESULTS_LIMIT = 500;
+export const API_RESULTS_LIMIT = 500
 
-export const SUGGESTED_QUERIES = ["Trump", "NFL", "Pope", "Facebook"];
+export const SUGGESTED_QUERIES = ["Trump", "NFL", "Pope", "Facebook"]
 
 export const HOST_OPTIONS = [
   { id: "", display: "All hosts" },
@@ -32,7 +32,7 @@ export const HOST_OPTIONS = [
   { id: "kimmel", display: "Jimmy Kimmel" },
   { id: "meyers", display: "Seth Meyers" },
   { id: "colbert", display: "Stephen Colbert" }
-];
+]
 
 export const YEAR_OPTIONS = [
   { id: "", display: "All years" },
@@ -46,21 +46,22 @@ export const YEAR_OPTIONS = [
   { id: "2016", display: "2016" },
   { id: "2017", display: "2017" },
   { id: "2018", display: "2018" }
-];
+]
 
 export const ORDER_OPTIONS = [
-  { id: "", display: "New to old" },
+  { id: "", display: "Random" },
+  { id: "-date", display: "New to old" },
   { id: "date", display: "Old to new" },
   { id: "host", display: "Host (A to Z)" }
-];
+]
 
 export const OPTION_DATA = {
   host: HOST_OPTIONS,
   year: YEAR_OPTIONS,
   order: ORDER_OPTIONS
-};
+}
 
 export const getInitialValue = (key, value) => {
-  const options = OPTION_DATA[key];
-  return options && options.find(o => o.id === value) ? value : options[0].id;
-};
+  const options = OPTION_DATA[key]
+  return options && options.find(o => o.id === value) ? value : options[0].id
+}
