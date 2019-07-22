@@ -50,6 +50,7 @@ export const YEAR_OPTIONS = [
 
 export const ORDER_OPTIONS = [
   { id: "", display: "Random" },
+  { id: "length", display: "Joke length" },
   { id: "-date", display: "New to old" },
   { id: "date", display: "Old to new" },
   { id: "host", display: "Host (A to Z)" }
