@@ -1,21 +1,21 @@
-export const urlToParams = str =>
+export const urlToParams = (str) =>
   str
     .slice(1)
     .split("&")
-    .filter(d => d.length)
+    .filter((d) => d.length)
     .reduce((params, hash) => {
       const [key, val] = hash.split("=")
       const valGood = val === undefined ? null : decodeURIComponent(val)
       return Object.assign(params, { [key]: valGood })
     }, {})
 
-export const paramsToUrl = obj =>
+export const paramsToUrl = (obj) =>
   Object.entries(obj)
     .filter(([_, val]) => val !== "")
     .map(([key, val]) => `${key}=${encodeURIComponent(val)}`)
     .join("&")
 
-export const API_BASE = "https://late-night-jokes-api.herokuapp.com"
+export const API_BASE = "https://late-night-lol-cac93db8c281.herokuapp.com"
 
 export const API_RESULTS_LIMIT = 500
 
@@ -31,7 +31,7 @@ export const HOST_OPTIONS = [
   { id: "fallon", display: "Jimmy Fallon" },
   { id: "kimmel", display: "Jimmy Kimmel" },
   { id: "meyers", display: "Seth Meyers" },
-  { id: "colbert", display: "Stephen Colbert" }
+  { id: "colbert", display: "Stephen Colbert" },
 ]
 
 export const YEAR_OPTIONS = [
@@ -45,7 +45,7 @@ export const YEAR_OPTIONS = [
   { id: "2015", display: "2015" },
   { id: "2016", display: "2016" },
   { id: "2017", display: "2017" },
-  { id: "2018", display: "2018" }
+  { id: "2018", display: "2018" },
 ]
 
 export const ORDER_OPTIONS = [
@@ -53,16 +53,16 @@ export const ORDER_OPTIONS = [
   { id: "length", display: "Joke length" },
   { id: "-date", display: "New to old" },
   { id: "date", display: "Old to new" },
-  { id: "host", display: "Host (A to Z)" }
+  { id: "host", display: "Host (A to Z)" },
 ]
 
 export const OPTION_DATA = {
   host: HOST_OPTIONS,
   year: YEAR_OPTIONS,
-  order: ORDER_OPTIONS
+  order: ORDER_OPTIONS,
 }
 
 export const getInitialValue = (key, value) => {
   const options = OPTION_DATA[key]
-  return options && options.find(o => o.id === value) ? value : options[0].id
+  return options && options.find((o) => o.id === value) ? value : options[0].id
 }
